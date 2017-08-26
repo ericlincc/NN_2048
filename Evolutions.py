@@ -8,16 +8,18 @@ class Evolution(object):
 	def __init__(self, net_sizes):
 		self.network = network.Network(net_sizes)
 		
-	def evolve(self, num_generations, num_populations, mutation_rate, save_file = None):
+	def evolve(self, num_generations, num_populations, mutation_rate, 
+			num_avg = None, save_file = None):
 		results = []
 		for i in range(num_generations):
-			results.append(self.network_evolve(num_populations, mutation_rate))
+			results.append(self.network_evolve(num_populations, mutation_rate, 
+					num_avg = None))
 		if save_file != None:
 			return results
 			
 	def network_evolve(self, num_populations, mutation_rate, num_avg = None):
 		if num_avg == None:
-			num_avg = 20
+			num_avg = 1000
 		network_1 = self.network
 		network_2 = self.network
 		avg_move_score_1 = self.avg_move_score(network_1, num_avg)

@@ -25,7 +25,7 @@ class Network(object):
 		x = []
 		for i in range(4):
 			for j in range(4):
-				x.append([np.exp( -board_input[i][j])])
+				x.append([1 - np.exp(-board_input[i][j])])
 		return int(np.argmax(self.feedforward(x)))
 
 """			
