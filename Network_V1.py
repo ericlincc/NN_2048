@@ -14,6 +14,21 @@ class Network(object):
 			a = sigmoid(np.dot(w, a) + b)
 		return a
 		
+	def mutate(self, m_rate):
+		i = 0
+		for b, w in zip(self.biases, self.weights):
+			self.biases[i] = np.random.randn(len(b), 1) * m_rate + b
+			self.weights[i] = np.random.randn(len(w), len(w[0])) * m_rate + w
+			i = i + 1
+				
+	def decide_the_move(self, board_input):
+		x = []
+		for i in range(4):
+			for j in range(4):
+				x.append([np.exp( -board_input[i][j])])
+		return int(np.argmax(self.feedforward(x)))
+
+"""			
 	def SGD(self, training_data, epochs, mini_batch_size, eta, test_data=None):
 		if test_data: n_test = len(test_data)
 		n = len(training_data)
@@ -29,7 +44,7 @@ class Network(object):
 						self.evaluate(test_data), n_test)
 			else:
 				print "Epoch {0} complete".format(j)
-"""				
+			
 	def update_mini_batch(self, mini_batch, eta):
 		nabla_b = [np.zeros(b.shape) for b in self.biases]
 		nabla_w = [np.zeros(w.shape) for w in self.weights]
@@ -80,5 +95,7 @@ class Network(object):
 def sigmoid(z):
 	return 1.0/(1.0 + np.exp(-z))
 
+"""
 def sigmoid_prime(z):
 	return sigmoid(z)*(1 - sigmoid(z))
+"""
