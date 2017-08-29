@@ -13,7 +13,7 @@ class Evolution(object):
 		results = []
 		for i in range(num_generations):
 			results.append(self.network_evolve(num_populations, mutation_rate, 
-					num_avg = None))
+					num_avg = num_avg))
 		if save_file != None:
 			return results
 			
