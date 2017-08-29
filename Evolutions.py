@@ -19,9 +19,10 @@ class Evolution(object):
 			
 	def network_evolve(self, num_populations, mutation_rate, num_avg = None):
 		if num_avg == None:
-			num_avg = 1000
+			num_avg = 100
 		network_1 = self.network
 		network_2 = self.network
+		avg_move_score_0 = self.avg_move_score(self.network, num_avg)
 		avg_move_score_1 = self.avg_move_score(network_1, num_avg)
 		avg_move_score_2 = self.avg_move_score(network_2, num_avg)
 		for i in range(num_populations):
@@ -34,12 +35,13 @@ class Evolution(object):
 				else:
 					network_2 = new_network
 		i = 0
-		for b_1, w_1, b_2, w_2 in zip(network_1.biases, network_1.weights,  
-				network_2.biases, network_2.weights):
-			self.network.biases[i] = (b_1 + b_2) * 0.5
-			self.network.weights[i] = (w_1 + w_2) * 0.5
-			i = i + 1
-		return new_avg_move_score
+		if (avg_move_score_1[1] > avg_move_score_0[1]) and (avg_move_score_2[1] > avg_move_score_0[1]):
+			for b_1, w_1, b_2, w_2 in zip(network_1.biases, network_1.weights,  
+					network_2.biases, network_2.weights):
+				self.network.biases[i] = (b_1 + b_2) * 0.5
+				self.network.weights[i] = (w_1 + w_2) * 0.5
+				i = i + 1
+		return self.avg_move_score(self.network, num_avg)
 		
 	def play_game_random(self):
 		play_board = game.new_game()
