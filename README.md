@@ -17,3 +17,8 @@ For the purpose of simplicity, it is assumed that the game ends when no block is
 - The ultimate goal is of course reaching 2048 (lower bound of the score = 20480).
 
 <img src="Misc/NN_display.png" height="500">
+Neural Network Design: [16, 8, 8, 4]
+
+## Current best results ([# of moves, score]):
+
+Average of 1000+ games: [9.76, 43.9]
